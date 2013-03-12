@@ -1,10 +1,10 @@
-# iNGB Framework: »ùÓÚ¹ú¼ÒNGB¹æ·¶µÄÊı×ÖµçÊÓUI¿ò¼Ü
+ï»¿# iNGB Framework: åŸºäºå›½å®¶NGBè§„èŒƒçš„æ•°å­—ç”µè§†UIæ¡†æ¶
 
 Homepage: https://github.com/miniflycn/iNGB
 
 
 ## Project Goals
-ÖÆ×÷ÊÊÓÃÓÚµçÊÓµÄUI¿ò¼Ü¡£
+åˆ¶ä½œé€‚ç”¨äºç”µè§†çš„UIæ¡†æ¶ã€‚
 
 ## License
 All code inside is licensed under MIT license.

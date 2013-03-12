@@ -1,0 +1,42 @@
+﻿<html>
+<head>
+<title>开机</title>
+<script>
+function eventHandler(event, type){
+	var code = event.code;
+	$.log("startUp.html event.code == " + event.code);
+	switch(code){
+		case "DVB_STARTUP_FINISH":	//开机完成
+		case "KEY_UP":
+		
+			/**
+			 * 接到DVB_STARTUP_FINISH以后开始加载必要模块，
+			 * 需要注意用require载入的模块是会永久占用内存的，
+			 * 所以对于不需要经常使用的模块不建议使用该方法载入。
+			 */
+			
+			//载入Log管理系统
+			$.require("log");
+			//载入事件映射
+			$.require("event");
+			
+			//mainFrame进入index.html
+			$.mainFrame.load("index.html");
+			break;
+	}
+	
+	//阻隔所有事件
+	return 0;
+	
+}
+</script>
+</head>
+
+<body style="margin:0px;padding:0px;">
+<div style="background-image:url(logo.jpg);width:1280px;height:720px;"></div>
+
+
+
+
+</body>
+</html>

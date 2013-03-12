@@ -1,0 +1,31 @@
+﻿<html>
+<head>
+<title>主页</title>
+<script>
+
+function init(){
+	
+	var tmp = $.widget("test");
+
+	tmp.load("caNote.htm");
+	tmp.resize(1280, 720);
+	tmp.moveTo(0, 0);
+}
+
+/**
+ * 该框架不支持onload事件，
+ * 原因是在onload事件之后框架做了一些处理，
+ * 所以提供onReady方法代替onload。
+ */
+window.onReady = init;
+
+</script>
+</head>
+
+
+<body style="background-image:url(index.png)">
+
+
+
+</body>
+</html>

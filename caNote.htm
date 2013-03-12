@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="page-view-size" content = "1280*720">
+<title>无标题文档</title>
+<script>
+function init(){
+	Q("#text").innerHTML = "没有信号！";
+}
+
+function eventHandler(event, type){
+	var code = event.code;
+	switch(code){
+		case "KEY_SELECT":
+			$.widget("test").minimize();
+			break;
+	}
+}
+
+window.onReady = init;
+</script>
+</head>
+
+<body leftmargin="0" topmargin="0">
+<div style="position:absolute; left:421px; top:169px; width:480px; height:277px; background: url(tck_bg.png) no-repeat;">
+  <table width="90%" height="198" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr>
+      <td height="44" align="center" style="font-size:28px;color:#000000;" id="title">温馨提示</td>
+    </tr>
+    <tr>
+      <td style="font-size:22px; color:#000000; line-height:45px; text-align:center;" id="text">未配对</td>
+    </tr>
+  </table>
+  
+  
+</div>
+</body>
+</html>

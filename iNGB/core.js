@@ -5,6 +5,7 @@
  *   3、三层事件架构
  *   4、动态脚本加载
  *   5、给widget绑定工具
+ *   6、实现第三方应用依然能在框架运行的方法
  * @author yangwj@ipanel.cn
  * @version v1.0
  ***/
@@ -192,6 +193,49 @@ $.mainFrame = new __widget("mainFrame");
 $.mainFrame.resize(1280, 720);
 $.mainFrame.moveTo(0, 0);
 
+$.mainFrame.gotoApp = function(url){
+	if(this.win){
+		$.removeHandler(this.win.__.handler);
+	}
+		
+	var that = this;
+		
+	this.iframe.onload = initPage;
+	this.iframe.src = url;
+		
+	function initPage(){
+		that.doc = that.iframe.contentDocument;
+		that.win = that.iframe.contentWindow;
+			
+		$._log("Widget[" + that.name + "] url == " + url);
+			
+		that.iframe.onload = function(){
+			if(this.src.indexOf("http://") === -1){
+				back2UI();
+			}
+		};
+	}
+	
+	function back2UI(){
+		that.doc = that.iframe.contentDocument;
+		that.win = that.iframe.contentWindow;
+		that.win.__ = {
+			handler : that.win.eventHandler || function(){},
+			name: that.name
+		};
+			
+		$._log("Widget[" + that.name + "] url == " + url);
+			
+		$.init(that.win, that.doc);
+			
+		that.iframe.onload = function(){};
+			
+		var tmp;
+			
+		(tmp = that.win.onReady) && tmp();
+	}
+};
+
 })($);
 
 /**
@@ -261,15 +305,15 @@ function eventManager(event, type, p2){
 		for(i = 0; i < len; i++){
 			if(!widgetHandles[i](event, type)){
 				$._log("The event(" + event.code + ") stop down flow in widget.");
-				return;
+				return 0;
 			}
 		}
 	}
-	if(!$.mainFrame.win.__.handler(event, type)){
+	if($.mainFrame.win.__ && !$.mainFrame.win.__.handler(event, type)){
 		$._log("The event(" + event.code + ") stop down flow in mainFrame.");
-		return;
+		return 0;
 	}
-	eventHandler(event, type);
+	window.eventHandler && eventHandler(event, type);
 }
 
 /**
@@ -321,15 +365,33 @@ $.SystemEvent = {
 document.onkeydown = function(e){
 	var code;
 	if((code = $.KeyEvent[e.which])){
-		eventManager(code, 1, e.modifiers);
+		if(!eventManager(code, 1, e.modifiers)){
+			return 0;
+		}
 	}
-}
+	if(!$.mainFrame.__){
+		var tmp = $.mainFrame.doc.onkeydown;
+		if(typeof tmp === "function"){
+			tmp(e);
+		}
+	}
+};
+
 document.onsystemevent = function(e){
 	var code;
 	if((code = $.SystemEvent[e.which])){
-		eventManager(code, 2, e.modifiers);
+		if(!eventManager(code, 2, e.modifiers)){
+			return 0;
+		}
 	}
-}
+	
+	if(!$.mainFrame.__){
+		var tmp = $.mainFrame.doc.onsystemevent;
+		if(typeof tmp === "function"){
+			tmp(e);
+		}
+	}
+};
 
 /**
  * $.addHandler(handler)

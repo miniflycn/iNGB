@@ -1,30 +1,30 @@
-/*!
+ï»¿/*!
  * iNGB Framework Stacktrace
- *   ¶ÑÕ»¸ú×ÙÏµÍ³£¬ĞèÒªºÍ¶ÑÕ»¸ú×Ù·şÎñÆ÷ÅäºÏ
+ *   å †æ ˆè·Ÿè¸ªç³»ç»Ÿï¼Œéœ€è¦å’Œå †æ ˆè·Ÿè¸ªæœåŠ¡å™¨é…åˆ
  * @author yangwj@ipanel.cn
  * @version v1.0
  ***/
 (function(win, $){
 
 /**
- * ¾²Ì¬¿ª¹Ø
+ * é™æ€å¼€å…³
  ***/
 var on = true,
 
 /**
- * ¶ÑÕ»¸ú×Ù·şÎñÆ÷µØÖ·
+ * å †æ ˆè·Ÿè¸ªæœåŠ¡å™¨åœ°å€
  ***/	
-	service = "";	//ÀıÈç£¬http://196.168.12.34/stacktrace
+	service = "";	//ä¾‹å¦‚ï¼Œhttp://196.168.12.34/stacktrace
 
 /**
- * ¶¯Ì¬¿ª¹Ø
+ * åŠ¨æ€å¼€å…³
  ***/
 $.logOn = true;
 $.systemLogOn = true;
 $.errorOn = true;
 
 /**
- * ÄÚ²¿POST·½·¨£¬±ÜÃâÒÀÀµ
+ * å†…éƒ¨POSTæ–¹æ³•ï¼Œé¿å…ä¾èµ–
  ***/
 var post = function(params) {
     var xhr = new XMLHttpRequest();
@@ -38,7 +38,7 @@ if(on){
 
 	/**
 	 * $.log(str)
-	 * ´òÓ¡str
+	 * æ‰“å°str
 	 ***/
 	$.log = function(str){
 		str = "[UI LOG] " + str;
@@ -47,7 +47,7 @@ if(on){
 
 	/**
 	 * $._log(str)
-	 * ÄÚ²¿×¨ÓÃ´òÓ¡£¬²»½¨ÒéÍâ²¿Ê¹ÓÃ
+	 * å†…éƒ¨ä¸“ç”¨æ‰“å°ï¼Œä¸å»ºè®®å¤–éƒ¨ä½¿ç”¨
 	 ***/
 	$._log = function(str){
 		str = "[iNGB Framework] " + str;
@@ -58,7 +58,7 @@ if(on){
 
 
 /**
- * °ó¶¨´íÎóÊÕ¼¯Æ÷
+ * ç»‘å®šé”™è¯¯æ”¶é›†å™¨
  ***/
 win.onerror = function(msg, url, line){
 	var params = "url=" + url +

@@ -14,13 +14,13 @@ var on = true,
 /**
  * 堆栈跟踪服务器地址
  ***/	
-	service = "";	//例如，http://196.168.12.34/stacktrace
+	service = "http://localhost:48178/";	//例如，http://196.168.12.34/stacktrace/
 
 /**
  * 动态开关
  ***/
-$.logOn = true;
-$.systemLogOn = true;
+$.logOn = false;	//默认关闭
+$.systemLogOn = false;	//默认关闭
 $.errorOn = true;
 
 /**

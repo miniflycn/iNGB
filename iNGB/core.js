@@ -5,13 +5,14 @@
  *   3、三层事件架构
  *   4、动态脚本加载
  *   5、给widget绑定工具
- *   6、实现第三方应用依然能在框架运行的方法
+ *   6、观察者模式实现
+ *   7、实现第三方应用依然能在框架运行的方法(没有任何真焦点时候)
  * @author official@justany.net
  * @version v1.0
  ***/
 
 /**
- * debug管理
+ * 选择器
  ***/
 (function(host){
 
@@ -42,6 +43,51 @@ host.$ = $;
 })(this);
 
 /**
+ * Watcher机制
+ ***/
+(function($){
+
+function defineGetAndSet(obj, propName, getter, setter) {
+	try {
+		Object.defineProperty(obj, propName, {
+			get: getter,
+			set: setter,
+			enumerable: true,
+			configurable: true
+		});
+	} catch(error) {
+		try{
+			Object.prototype.__defineGetter__.call(obj, propName, getter);
+			Object.prototype.__defineSetter__.call(obj, propName, setter);
+		}catch(error2){
+			$._log("browser not supported.");
+		}
+	}
+};
+
+function watcher(obj, prop, watcher) {
+
+	var val = obj[prop];
+
+	var getter = function () {
+		return val;
+	};
+
+	var setter = function (newval) {
+		var oldval = val;
+		val = newval;
+		watcher(prop);
+	};
+
+	defineGetAndSet(obj, prop, getter, setter);
+
+};
+
+$.watcher = watcher;
+
+})($);
+
+/**
  * Widget封装
  ***/
 (function($){
@@ -58,6 +104,7 @@ var doc = document,
 			this.iframe.style.position = "absolute";
 			this.iframe.scrolling = "no";
 			this.iframe.frameBorder = "no";
+			this.iframe.zIndex = "999";
 		}else{
 			this.iframe = widgetList.shift();
 		}
@@ -193,6 +240,10 @@ $.mainFrame = new __widget("mainFrame");
 $.mainFrame.resize(1280, 720);
 $.mainFrame.moveTo(0, 0);
 
+/**
+ * $.mainFrame.gotoApp(url)
+ * 当App没有任何真焦点时候，使用该接口
+ ***/
 $.mainFrame.gotoApp = function(url){
 	if(this.win){
 		$.removeHandler(this.win.__.handler);
@@ -204,16 +255,15 @@ $.mainFrame.gotoApp = function(url){
 	this.iframe.src = url;
 		
 	function initPage(){
+	
+		if(this.src.indexOf("http://") === -1){
+			back2UI();
+		}
+	
 		that.doc = that.iframe.contentDocument;
 		that.win = that.iframe.contentWindow;
 			
 		$._log("Widget[" + that.name + "] url == " + url);
-			
-		that.iframe.onload = function(){
-			if(this.src.indexOf("http://") === -1){
-				back2UI();
-			}
-		};
 	}
 	
 	function back2UI(){
@@ -234,6 +284,69 @@ $.mainFrame.gotoApp = function(url){
 			
 		(tmp = that.win.onReady) && tmp();
 	}
+};
+
+/**
+ * $.mainFrame.gotoApp2(url)
+ * 当App有假焦点时
+ ***/
+$.mainFrame.gotoApp2 = function(url){
+	if(this.win){
+		$.removeHandler(this.win.__.handler);
+	}
+	
+	var that = this;
+	
+	this.iframe.onload = initPage;
+	this.iframe.src = url;
+
+	function initPage(){
+
+		if(this.src.indexOf("http://") === -1){
+			back2UI();
+			return;
+		}
+		
+		that.doc = that.iframe.contentDocument;
+		that.win = that.iframe.contentWindow;
+			
+		$._log("Widget[" + that.name + "] url == " + url);
+		
+		$.watcher(that.doc, "onkeydown", watcherEvent);
+		$.watcher(that.doc, "onsystemevent", watcherEvent);
+		
+		function watcherEvent(prop){
+			var tmp = that.doc[prop];
+			that.doc[prop] = function(e){
+				var code;
+				if((code = prop === "onkeydown" ? $.KeyEvent[e.which] : $.SystemEvent[e.which])){
+					if(!eventManager(code, (prop === "onkeydown" ? 1 : 2), e.modifiers)){
+						return 0;
+					}
+				}
+			};
+		}
+	}
+	
+	function back2UI(){
+		that.doc = that.iframe.contentDocument;
+		that.win = that.iframe.contentWindow;
+		that.win.__ = {
+			handler : that.win.eventHandler || function(){},
+			name: that.name
+		};
+			
+		$._log("Widget[" + that.name + "] url == " + url);
+			
+		$.init(that.win, that.doc);
+			
+		that.iframe.onload = function(){};
+			
+		var tmp;
+			
+		(tmp = that.win.onReady) && tmp();
+	}
+	
 };
 
 })($);

@@ -36,7 +36,7 @@ $.ajax.request = function(url, options, type){
 				if (async){
 					xhr = null;
 				}
-			},0);
+			}, 0);
 		}
 	}
 	

@@ -1,7 +1,7 @@
 ﻿/*!
  * iNGB Framework Stacktrace
  *   堆栈跟踪系统，需要和堆栈跟踪服务器配合
- * @author yangwj@ipanel.cn
+ * @author official@justany.net
  * @version v1.0
  ***/
 (function(win, $){

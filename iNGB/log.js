@@ -1,7 +1,7 @@
 ﻿/*!
  * iNGB Framework Log
  *   用于管理Log
- * @author yangwj@ipanel.cn
+ * @author official@justany.net
  * @version v1.0
  ***/
 (function($){

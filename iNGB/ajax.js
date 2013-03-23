@@ -1,7 +1,7 @@
 ﻿/*!
  * iNGB Framework Ajax
  *   用于简化Ajax操作
- * @author yangwj@ipanel.cn
+ * @author official@justany.net
  * @version v1.0
  ***/
 (function($){

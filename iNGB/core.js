@@ -6,7 +6,7 @@
  *   4、动态脚本加载
  *   5、给widget绑定工具
  *   6、实现第三方应用依然能在框架运行的方法
- * @author yangwj@ipanel.cn
+ * @author official@justany.net
  * @version v1.0
  ***/
 

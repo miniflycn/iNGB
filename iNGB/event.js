@@ -2,7 +2,7 @@
  * iNGB Framework Event
  *   1、负责按键事件与系统事件映射
  *   2、使得映射可以动态修改管理
- * @author yangwj@ipanel.cn
+ * @author official@justany.net
  * @version v1.0
  ***/
 

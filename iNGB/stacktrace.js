@@ -68,4 +68,6 @@ win.onerror = function(msg, url, line){
 	post(params);
 }
 
+$.stacktrace = true;	//载入成功标记
+
 })(window, $);

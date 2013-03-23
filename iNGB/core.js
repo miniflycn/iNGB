@@ -245,14 +245,15 @@ $.mainFrame.gotoApp = function(url){
 
 var doc = document,
 	seed = {
-		"EVENT": "iNGB/event.js",		//事件映射
-		"DATE": "iNGB/date.js",			//日期显示
-		"AJAX": "iNGB/ajax.js",			//AJAX
-		"MSG": "iNGB/msg.js",			//消息通道
-		"STRING": "iNGB/string.js",		//字符串操作
-		"LOG": "iNGB/log.js",			//通用Log管理
-		"AMD": "iNGB/amd.js",			//AMD模块加载器
-		"HANDLER": "iNGB/handler.js"	//底层事件处理器
+		"EVENT": "iNGB/event.js",			//事件映射
+		"DATE": "iNGB/date.js",				//日期显示
+		"AJAX": "iNGB/ajax.js",				//AJAX
+		"MSG": "iNGB/msg.js",				//消息通道
+		"STRING": "iNGB/string.js",			//字符串操作
+		"LOG": "iNGB/log.js",				//通用Log管理
+		"AMD": "iNGB/amd.js",				//AMD模块加载器
+		"HANDLER": "iNGB/handler.js",		//底层事件处理器
+		"STACKTRACE": "iNGB/stacktrace.js"	//堆栈跟踪模块
 	};
 
 /**
@@ -439,7 +440,7 @@ $.init = function(currWindow, currDocument){
 	 * 改变页面的事件处理器
 	 ***/
 	currWindow.changeHandler = function(handler){
-		$.removeHandler(this.__.handler);
+		$.removeHandler(currWindow.__.handler);
 		$.addHandler(handler);
 		this.__.handler = handler;
 	};

@@ -324,6 +324,7 @@ $.mainFrame.gotoApp2 = function(url){
 						return 0;
 					}
 				}
+				tmp(e);
 			};
 		}
 	}

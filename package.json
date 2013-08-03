@@ -1,0 +1,29 @@
+{
+	"name": "iNGB",
+	"title": "iNGB JavaScript Framework",
+	"description": "Javascript Framework for TV",
+	"version": "1.1.0pre",
+	"homepaeg": "https://github.com/miniflycn/iNGB/",
+	"author": {
+		"name": "WhiteSnow",
+		"url": "http://justany.cnblogs.com"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/miniflycn/iNGB.git"
+	},
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "https://github.com/miniflycn/JsCV/blob/master/MIT_License.md"
+		}
+	],
+	"dedpendencies": {},
+	"devDependencies": {
+		"grunt": "~0.4.1",
+		"grunt-contrib-jshint": "~0.1.1",
+		"grunt-contrib-concat": "~0.3.0",
+		"grunt-contrib-uglify": "~0.2.0"
+	},
+	"keywords": []
+}
